@@ -9,6 +9,10 @@ class Matrix:
         else:
             self.valores = [[0] * columnas for _ in range(filas)]
 
+    def __len__(self):
+        l = self.filas * self.columnas
+        return l
+
     def __call__(self, *args, **kwargs):
         return self
 
@@ -54,14 +58,19 @@ class Matrix:
         fila, columna = indices
         self.valores[fila][columna] = valor
 
-    def __add__(self, otra):
-        if self.filas != otra.filas or self.columnas != otra.columnas:
+    def __add__(self, matrix):
+        if self.filas != matrix.filas or self.columnas != matrix.columnas:
             raise ValueError("Las matrices deben tener las mismas dimensiones para sumar.")
         resultado = Matrix(self.filas, self.columnas)
         for i in range(self.filas):
             for j in range(self.columnas):
-                resultado[i, j] = self[i, j] + otra[i, j]
+                resultado[i, j] = self[i, j] + matrix[i, j]
         return resultado
+
+    def __abs__(self):
+        for i in self:
+            i = abs(i)
+        return self
 
     def __mul__(self, otra):
         if self.columnas != otra.filas:
@@ -80,17 +89,3 @@ class Matrix:
         filas_str = ["\t".join(map(str, fila)) for fila in self.valores]
         return "\n".join(filas_str)
 
-    def pp(self):
-        print("pp")
-
-
-m = Matrix(2, 2)
-p = Matrix(2, 2)
-k=m.as_str
-
-
-for i in m:
-    print(i)
-
-
-print(k)
