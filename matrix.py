@@ -84,7 +84,7 @@ class Matrix:
         print("pp")
 
 
-m = Matrix(2, 2)
+m = Matrix(2, 2,[[3,4],[5,6]])
 p = Matrix(2, 2)
 k=m.as_str
 
